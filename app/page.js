@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import { supabase } from '@/lib/supabaseClient';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 

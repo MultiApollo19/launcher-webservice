@@ -2,12 +2,25 @@
 import './globals.css'
 import Image from 'next/image'
 import { supabase } from '@/lib/supabaseClient';
-import { useUser } from '@supabase/auth-helpers-react'
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export default function RootLayout({ children }) {
-  const user = useUser()
+  const [user, setUser] =useState('')
+  const [avatar, setAvatar] =useState('https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/default.svg')
+  
+  useEffect(()=>{
+    getSupa()
+  },[])
+
+
+  async function getSupa(){
+    const { data: { user } } = await supabase.auth.getUser();
+    setUser(user);
+  }
+
+  
+  
   return (
     <html lang="en">
       {/*
@@ -34,8 +47,8 @@ export default function RootLayout({ children }) {
             </div>
             :
             <div className='flex mt-8 ml-auto mr-6  hover:cursor-pointer '>
-              <div className='text-white text-2xl mt-1 mr-4'>John Doe</div>
-              <Image src="https://ui-avatars.com/api/?size=64" alt='avatar' width={43} height={43} className="w-11 h-11 rounded-3xl" />
+              <div className='text-white text-2xl mt-1 mr-4'>{user.user_metadata.nickname}</div>
+              <Image src={avatar} alt='avatar' width={43} height={43} className="w-11 h-11 rounded-3xl" />
             </div>
           }
 
