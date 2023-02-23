@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import { supabase } from '@/lib/supabaseClient';
-import { use, useEffect,useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,23 +11,23 @@ export default function Home() {
   const [version, setVersion] = useState('0.0.0');
   const [url, setUrl] = useState('https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/updates/Distribution/launcher.exe');
 
-  useEffect(()=>{
+  useEffect(() => {
     getVersion()
-    setUrl(process.env.NEXT_PUBLIC_SUPABASE_URL+'/storage/v1/object/public/updates/'+version+'/launcher.exe')
+    setUrl(process.env.NEXT_PUBLIC_SUPABASE_URL + '/storage/v1/object/public/updates/' + version + '/launcher.exe')
     //console.log(process.env.NEXT_PUBLIC_SUPABASE_URL+'/storage/v1/object/public/updates/'+version+'/launcher.exe')
-  },[version])
+  }, [version])
 
   function download() {
-    if (typeof window !== "undefined"){
+    if (typeof window !== "undefined") {
       window.location.href = url
     }
   }
-  async function getVersion(){
-    const {data,error} = await supabase.from('updates').select('version');
+  async function getVersion() {
+    const { data, error } = await supabase.from('updates').select('version');
     //console.log(data[0].version);
     setVersion(data[0].version);
     //console.log(error);
-    
+
   }
   
   return (
