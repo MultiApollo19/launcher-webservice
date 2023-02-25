@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images:{
-    domains:['ui-avatars.com'],
+    domains:['ui-avatars.com','cklczqohgdctyqulkssz.supabase.co'],
   }
 }
 
