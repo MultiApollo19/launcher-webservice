@@ -18,7 +18,7 @@ export default function SignIn() {
         console.log(data, error);
         if(data.user){
             router.push('/')
-            router.reload()
+            router.refresh()
         }
         
     }
