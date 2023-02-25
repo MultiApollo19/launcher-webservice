@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export default function RootLayout({ children }) {
   const [user, setUser] =useState('')
-  const [avatar, setAvatar] =useState('https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/default.svg')
+  const [avatar, setAvatar] =useState('https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/default.png')
   
   useEffect(()=>{
     getSupa()
@@ -17,6 +17,8 @@ export default function RootLayout({ children }) {
   async function getSupa(){
     const { data: { user } } = await supabase.auth.getUser();
     setUser(user);
+    const {data} = await supabase.from('users').select('avatarID').eq('nickname',user.user_metadata.nickname);
+    setAvatar("https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/" + data[0].avatarID);
   }
 
   
