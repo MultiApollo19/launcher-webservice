@@ -10,11 +10,10 @@ export default function RootLayout({ children }) {
   const [avatar, setAvatar] =useState('https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/default.png')
   
   useEffect(()=>{
-    getSupa()
-    const d = new Date();
-    let text = d.toISOString();
-    console.log(text)
-  },[])
+    getSupa()    
+    lastOnline()
+    console.log(user,avatar)
+  },[avatar])
 
   
   async function getSupa(){
@@ -22,6 +21,12 @@ export default function RootLayout({ children }) {
     setUser(user);
     const {data} = await supabase.from('users').select('avatarID').eq('nickname',user.user_metadata.nickname);
     setAvatar("https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/" + data[0].avatarID);
+  }
+  async function lastOnline(){
+    const d = new Date();
+    let text = d.toISOString();
+    const {data,error} = await supabase.from('users').update({lastOnline: (new Date().toISOString())}).eq('id', user.id).select();
+    console.log(data,error)
   }
 
   
