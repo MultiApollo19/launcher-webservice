@@ -11,9 +11,12 @@ export default function RootLayout({ children }) {
   
   useEffect(()=>{
     getSupa()
+    const d = new Date();
+    let text = d.toISOString();
+    console.log(text)
   },[])
 
-
+  
   async function getSupa(){
     const { data: { user } } = await supabase.auth.getUser();
     setUser(user);
@@ -49,8 +52,10 @@ export default function RootLayout({ children }) {
             </div>
             :
             <div className='flex mt-8 ml-auto mr-6  hover:cursor-pointer '>
+              <Link href={"/id/"+user.user_metadata.nickname} className='flex'>              
               <div className='text-white text-2xl mt-1 mr-4'>{user.user_metadata.nickname}</div>
               <Image src={avatar} alt='avatar' width={43} height={43} className="w-11 h-11 rounded-3xl" />
+              </Link>
             </div>
           }
 

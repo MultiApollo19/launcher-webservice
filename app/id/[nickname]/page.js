@@ -9,9 +9,11 @@ export default function id({ params }) {
     const [avatarID, setAvatarID] = useState('https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/default.svg');
     const [status, setStatus] = useState('');
     const [uID, setUID] = useState('');
+    const [game,setGame] = useState('');
 
     useEffect(() => {
         getData();
+        console.log(game);
         /*console.log(nickname);
         console.log(avatarID);
         console.log(status);
@@ -24,13 +26,12 @@ export default function id({ params }) {
         //console.log(data[0], error);
         setNickname(data[0].nickname);
         setAvatarID("https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/" + data[0].avatarID);
-        setStatus(data[0].status);
+        setStatus(data[0].status[0]);
         setUID(data[0].id);
-
+        setGame(data[0].status.slice(1));
     }
 
-    return (
-
+    return (        
         <main>
             {nickname && avatarID && status ?
                 <div className="flex justify-center place-items-center">
@@ -38,14 +39,14 @@ export default function id({ params }) {
                         <div className='text-white flex flex-row text-3xl h-screen ml-32 mt-20'>
                             <Image src={avatarID} alt='avatar' width={128} height={128} className="w-32 h-32"/>
                             <div className='mt-10 text-4xl ml-10'>{nickname}
-                            {status[0]==="0"&&
+                            {status==="0"&&
                             <div className='text-lg opacity-40 flex flex-row text-white'><div className='w-3 h-3 mr-2 mt-2 rounded-full bg-white'></div>Offline</div>
                             }
-                            {status[0]==="1"&&
+                            {status==="1"&&
                             <div className='text-lg flex flex-row text-[#1689F3]'><div className='w-3 h-3 mr-2 mt-2 rounded-full bg-[#1689F3]'></div>Online</div>
                             }
-                            {status[0]==="2"&&
-                            <div className='text-lg flex flex-row text-[#095F17]'><div className='w-3 h-3 mr-2 mt-2 rounded-full bg-[#095F17]'></div>In game</div>
+                            {status==="2"&&
+                            <div className='text-lg flex flex-row text-[#095F17]'><div className='w-3 h-3 mr-2 mt-2 rounded-full bg-[#095F17]'></div><div className='flex flex-col'><div>In game</div><div>{game}</div></div></div>
                             }
                             </div>
                         </div>
