@@ -1,7 +1,5 @@
 'use client';
 import Image from 'next/image'
-import Link from 'next/link';
-
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -12,32 +10,28 @@ export default function id({ params }) {
     const [status, setStatus] = useState('');
     const [uID, setUID] = useState('');
     const [game,setGame] = useState('');
-    const [user, setUser] =useState('')
 
     useEffect(() => {
         getData();
-        getSupa()
-        /*console.log(game);
+        console.log(game);
         console.log(nickname);
         console.log(avatarID);
         console.log(status);
-        console.log(uID);*/
+        console.log(uID);
     }, [nickname, avatarID, status,uID])
 
-    async function getSupa(){
-        const { data: { user } } = await supabase.auth.getUser();
-        setUser(user);
-      }
+
     async function getData() {
         const { data, error } = await supabase.from('users').select('nickname, avatarID,status,id').eq('nickname', params.nickname);
         //console.log(data[0], error);
         if(data){
-            setNickname(data[0].nickname);
-            setAvatarID("https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/" + data[0].avatarID);
-            setStatus(data[0].status[0]);
-            setUID(data[0].id);
-            setGame(data[0].status.slice(1));
-        }        
+
+        }
+        setNickname(data[0].nickname);
+        setAvatarID("https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/" + data[0].avatarID);
+        setStatus(data[0].status[0]);
+        setUID(data[0].id);
+        setGame(data[0].status.slice(1));
     }
 
     return (        
@@ -58,10 +52,7 @@ export default function id({ params }) {
                             <div className='text-lg flex flex-row text-[#095F17]'><div className='w-3 h-3 mr-2 mt-2 rounded-full bg-[#095F17]'></div><div className='flex flex-col'><div>In game</div><div>{game}</div></div></div>
                             }
                             </div>
-                            {uID == user.id &&
-                            <Link href={"/id/"+user.user_metadata.nickname+"/edit"}><div className='ml-10 mt-24 bg-[#2596FF] h-8 justify-center px-4 pt-0.5 hover:cursor-pointer place-items-center text-white text-lg'><p>Edit profile</p></div></Link>
-                            }
-                            
+                            <div className='ml-10 mt-24 bg-[#2596FF] h-8 justify-center px-4 pt-0.5 hover:cursor-pointer place-items-center text-white text-lg'><p>Edit profile</p></div>
                         </div>
                     </div>
                 </div>
