@@ -74,7 +74,7 @@ export default function RootLayout({ children }) {
                     <div className='text-white text-2xl mt-1 mr-4 h-8'>{user.user_metadata.nickname}</div>
                     <Image src={avatar} alt='avatar' width={43} height={43} className="w-11 h-11 rounded-3xl" />
                   </div>
-                  <div className=' bg-[#131727] text-white text-lg justify-center place-items-center content-center'>
+                  <div className=' bg-[#131727] text-white text-lg justify-center place-items-center content-center z-10'>
                     <p className='ml-14'>DUPA DUPA</p>
                   </div>
                 </div>

@@ -59,7 +59,7 @@ export default function id({ params }) {
                             }
                             </div>
                             {uID == user.id &&
-                            <Link href={"/id/"+user.user_metadata.nickname+"/edit"}><div className='ml-10 mt-24 bg-[#2596FF] h-8 justify-center px-4 pt-0.5 hover:cursor-pointer place-items-center text-white text-lg'><p>Edit profile</p></div></Link>
+                            <Link href={"/id/"+user.user_metadata.nickname+"/edit"} className='h-8'><div className='ml-10 mt-24 bg-[#2596FF] h-8 justify-center px-4 pt-0.5 hover:cursor-pointer place-items-center text-white text-lg'><p>Edit profile</p></div></Link>
                             }
                             
                         </div>
