@@ -4,8 +4,12 @@ import Image from 'next/image'
 import { supabase } from '@/lib/supabaseClient';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 
 export default function RootLayout({ children }) {
+  const router = useRouter();
+
   const [user, setUser] = useState('')
   const [avatar, setAvatar] = useState('https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/default.png')
   const [menu, setMenu] = useState(false);
@@ -19,9 +23,12 @@ export default function RootLayout({ children }) {
 
   async function getSupa() {
     const { data: { user } } = await supabase.auth.getUser();
-    setUser(user);
-    const { data } = await supabase.from('users').select('avatarID').eq('nickname', user.user_metadata.nickname);
-    setAvatar("https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/" + data[0].avatarID);
+    if(user){
+      setUser(user);
+      const { data } = await supabase.from('users').select('avatarID').eq('nickname', user.user_metadata.nickname);
+      setAvatar("https://cklczqohgdctyqulkssz.supabase.co/storage/v1/object/public/avatars/" + data[0].avatarID);
+    }
+    
   }
   async function lastOnline() {
     const d = new Date();
@@ -31,6 +38,7 @@ export default function RootLayout({ children }) {
   }
   async function logout() {
     const { error } = await supabase.auth.signOut()
+    router.refresh()
   }
   function changeMenu() {
     setMenu(!menu)
@@ -38,10 +46,6 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
       <body className='bg-[#0E111D] font-imprima max-h-screen h-screen justify-between flex flex-col'>
         <div className='bg-[#0C0E18] w-full h-24 flex content-center flex-row'>
@@ -75,7 +79,8 @@ export default function RootLayout({ children }) {
                     <Image src={avatar} alt='avatar' width={43} height={43} className="w-11 h-11 rounded-3xl" />
                   </div>
                   <div className=' bg-[#131727] text-white text-lg justify-center place-items-center content-center z-10'>
-                    <p className='ml-14'>DUPA DUPA</p>
+                    <Link href={"/id/"+user.user_metadata.nickname} className='border-dashed border-b-2'><p className='ml-14'>Profile</p></Link>
+                    <Link href='' className='border-dashed border-b-2' onClick={logout}><p className='ml-14'>Sign out</p></Link>
                   </div>
                 </div>
               }
