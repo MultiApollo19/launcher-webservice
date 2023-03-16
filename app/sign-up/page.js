@@ -2,10 +2,11 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { useRouter } from 'next/navigation';
 
 
 export default function SignUp() {
-
+    const router = useRouter();
 
     async function handleSubmit(event){
         event.preventDefault();
@@ -22,6 +23,10 @@ export default function SignUp() {
                 }
             }
         })
+        if(!error){
+            router.push('/sign-in')
+            router.refresh()
+        }
         //console.log(data, error);
         
     }
