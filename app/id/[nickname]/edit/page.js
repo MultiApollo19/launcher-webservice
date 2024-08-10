@@ -36,7 +36,23 @@ export default function id({ params }) {
 
     return (        
         <main>
-            {nickname && avatarID && status ?
+                <div className="flex justify-center place-items-center">
+                    <div className='flex  bg-[#131727] w-2/3 place-items-center'>
+                        <div className='text-white flex flex-row text-3xl h-screen ml-32 mt-20'>
+                            <div className='mt-10 text-4xl ml-10'>SPRZEDAM OPLA 1.4 LPG
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </main>
+
+
+    );
+}
+/*
+{nickname && avatarID && status ?
                 <div className="flex justify-center place-items-center">
                     <div className='flex  bg-[#131727] w-2/3 place-items-center'>
                         <div className='text-white flex flex-row text-3xl h-screen ml-32 mt-20'>
@@ -65,8 +81,4 @@ export default function id({ params }) {
                     </div>
                 </div>
             }
-        </main>
-
-
-    );
-}
+*/
